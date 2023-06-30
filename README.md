@@ -1,5 +1,4 @@
 # HeatWatcherLite
-
 ## Introduktion
 
 Dette projekt kombinerer InfluxDB, en populær Blobstorage, med Blazor Server, et frameworksområde der tilbyder .NET-applikationer til at køre på serveren. Ved at kombinere disse teknologier kan du oprette en webapplikation, der kan gemme og præsentere telemetri data fra forskellige kilder.
@@ -108,3 +107,38 @@ Hvis du har brug for yderligere hjælp til InfluxDB eller Blazor Server, anbefal
 - InfluxDB-dokumentation: [https://docs.influxdata.com/](https://docs.influxdata.com/)
 - Blazor-dokumentation: [https://docs.microsoft.com/blazor/](https://docs.microsoft.com/blazor/)
 - .NET-dokumentation: [https://docs.microsoft.com/dotnet/](https://docs.microsoft.com/dotnet/)
+  
+### Built With
+___
+|  MAUI  |  C#  |  MQTT  |  Minimal API  |  InfluxDB  |
+|---|---|---|---|---|
+|  <img src="https://github.com/LukasPedersen/H5AppProgrammering-III-Project/assets/61869988/bdaa047a-7892-4593-9627-39e5e18ecbe9" alt="Logo" width="120" height="120">  |  <img src="https://github.com/LukasPedersen/H5AppProgrammering-III-Project/assets/61869988/b2da569a-06aa-4c5b-95c0-8259c661d7f6" alt="Logo" width="120" height="120">  |  <img src="https://github.com/LukasPedersen/H5AppProgrammering-III-Project/assets/61869988/5b74a28d-3711-42c7-b695-46c6ab36d9d3" alt="Logo" width="155" height="155">| <img src="https://github.com/LukasPedersen/H5AppProgrammering-III-Project/assets/61869988/a6e03e24-9096-4dab-b82e-324a5183ddc2" alt="Logo" width="120" height="120">  |  <img src="https://github.com/LukasPedersen/H5AppProgrammering-III-Project/assets/61869988/a5a46e98-d1fd-486c-9189-0c35e66b3537" alt="Logo" width="120" height="120">  |
+___
+
+## Topics
+---
+| Topic | Type | Body | Description |
+|---|---|---|---|
+| devices/```deviceId```/messages/devicebound | Subscribe | ```{ "LED": "ON" }``` | Tell device to turn LED ON or OFF |
+| devices/```deviceId```/messages/devicebound | Subscribe | ```{ "Servo": 120 }``` | Tell device to turn Servo to x degrees |
+| devices/```deviceId```/messages/telemetry | Publish | ```{ "temperature": 25.5, "humidity": 68.2 }``` | Send telemetry to broker |
+---
+
+## Api Endpoints
+| Endpoint | Type |
+|---|---|
+| /setLED | POST |
+| /setServo | POST |
+| /createTelemetry | POST |
+| /getTelemetry | GET |
+---
+
+## Roadmap
+
+- [x] Kan vise aktuel (seneste måling) af temperatur og humidity og de målte tidspunkter i lokal tid
+- [x] Kan vise en graf over målingerne, hvor man kan vælge mellem seneste time, dag og uge.
+- [X] Der skal være en knap, der via MQTT kan aktivere en servo (og simulere at man åbner et vindue eller tænder for ventilationen).
+- [X] App'en skal opbygges med MVVM design pattern og Dependency Injection.
+- [X] Kan vise seneste data, hvis nettet afbrydes. 
+- [X] Er robust overfor ustabil netforbindelse.
+- [X] Projektet afleveres i Github med en god Readme-fil og præsenteres for klassen. Readme-filen markerer også hvilke mål, der er nået.
