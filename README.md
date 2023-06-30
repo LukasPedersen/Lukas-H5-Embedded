@@ -1,6 +1,4 @@
-# HeatWathcerLite
-
-Velkommen til **HeatWathcerLite**! Dette er en vejledning til at komme i gang med at bruge InfluxDB API og Blazor Server på en Raspberry Pi. 
+# HeatWatcherLite
 
 ## Introduktion
 
@@ -18,7 +16,7 @@ Før du begynder at arbejde med dette projekt, skal du sikre dig, at du har føl
 ## Opsætning
 
 Følg disse trin for at sætte dit projekt op:  
-Sørg for at docker er installeret og køre hvis ikke skal du køre 
+Sørg for at docker er installeret og køre. ellers er der en guide her du kan følge 
 
 #### Installer docker
 ```Bash
@@ -44,7 +42,7 @@ docker ps
 Hvis terminalen skriver følgende, er Docker installeret:
 
 ```CONTAINER ID     IMAGE   COMMAND   CREATED    STATUS   PORTS   NAMES```
-## Instalation af projekt
+## Installation af projekt
 1. Klon projektets repository fra GitHub til din Raspberry Pi eller pc.
 1.1 Ved pc skal der bruges andet software (f.eks. WinSCP) til at flytte projektet over til din Raspberry Pi
     Hurtig installation af WinSCP i Windows Terminal:
@@ -70,17 +68,43 @@ docker run -d -p 8086:8086 -v influxdb:/var/lib/influxdb -v influxdb2:/var/lib/i
 3. Opret en ny Organisation  
 4. Opret en ny Bucket
 5. Opret en ny Token
-6. 
+
+Så er InfluxDB klar til brug
 
 ## API
 
-Blazor Server giver dig mulighed for at oprette webapplikationer ved hjælp af C# og .NET uden behov for klient-side JavaScript. Du kan finde eksempler på, hvordan du opretter interaktive brugergrænseflader ved hjælp af Blazor-komponenter i projektet.
+Nu da du har sat din InfluxDb op kan du få sat din API op og se om du kan få hul igennem  
+Da vi allerede har fået overført API og Blazor Server til vores Raspberry Pi skal vi bare have kørt den op  
 
-## Blazor Server
+1. Lav et Docker Image med kommandoen:  
+```Bash
+docker build -t api:latest -f WebApiMqtt/Dockerfile .
+```  
+2. Lan en Docker Container med kommandoen:  
+```Bash
+docker run -p 32768:80 -d api
+```
+3. Giv den nogle min før du prøver at forbinde men det kan gøres på:
+```<IP or hostname or localhost:32768/swagger/index.html>```
+4. Test via swagger om der er forbindelse til InfluxDb ved at prøve nogle af de endpoints der er.
+   
+## Blazor Server  
+Nu da du har sat din API op kan du få sat din Blazor Server op og se om du kan få hul igennem  
+Da vi allerede har fået overført API og Blazor Server til vores Raspberry Pi skal vi bare have kørt den op 
+1. Lav et Docker Image med kommandoen:  
+```Bash  
+docker build -t blazor-server:latest -f BlazorWeb/Dockerfile .
+```  
+2. Lan en Docker Container med kommandoen:  
+```Bash  
+docker run -p 31369:80 -d blazor-server
+```  
+3. Giv den nogle min før du prøver at forbinde men det kan gøres på:  
+```<IP or hostname or localhost:32768/swagger/index.html>```  
 
+## Extra hjælp
 Hvis du har brug for yderligere hjælp til InfluxDB eller Blazor Server, anbefales det at gennemgå dokumentationen og ressourcerne fra følgende kilder:
 
 - InfluxDB-dokumentation: [https://docs.influxdata.com/](https://docs.influxdata.com/)
 - Blazor-dokumentation: [https://docs.microsoft.com/blazor/](https://docs.microsoft.com/blazor/)
 - .NET-dokumentation: [https://docs.microsoft.com/dotnet/](https://docs.microsoft.com/dotnet/)
-
